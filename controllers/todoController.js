@@ -9,19 +9,11 @@ const todoSchema = new mongoose.Schema({
 
 const Todo = mongoose.model('Todo', todoSchema);
 
-// let data = [{
-//   item: 'watch anime'
-// }, {
-//   item: 'sleep'
-// }, {
-//   item: 'eat'
-// }];
-
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 export default app => {
   app.get('/todo', (req, res) => {
-    Todo.find({}, (err, data) => {
+    Todo.find({}).sort({ _id: -1 }).exec((err, data) => {
       if (err) throw err;
       res.render('todo', { todos: data });
     });
@@ -36,10 +28,10 @@ export default app => {
   });
 
   app.delete('/todo/:item', (req, res) => {
-    Todo.find({item: req.params.item.replace(/-/g, ' ')})
-    .remove((err, data) => {
-      if (err) throw err;
-      res.send(data);
-    });
+    Todo.find({ item: req.params.item.replace(/-/g, ' ') })
+      .remove((err, data) => {
+        if (err) throw err;
+        res.send(data);
+      });
   });
 };

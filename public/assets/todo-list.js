@@ -7,7 +7,7 @@ $(document).ready(function () {
       type: 'POST',
       url: '/todo',
       data: todo,
-      success: function (data) {
+      success: function () {
         location.reload();
       }
     });
@@ -19,7 +19,7 @@ $(document).ready(function () {
     $.ajax({
       type: 'DELETE',
       url: '/todo/' + item,
-      success: function (data) {
+      success: function () {
         location.reload();
       }
     });
