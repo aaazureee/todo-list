@@ -34,4 +34,8 @@ export default app => {
         res.send(data);
       });
   });
+  
+  app.get('*', (req, res) => {
+    res.send('404 Not Found');
+  });
 };
